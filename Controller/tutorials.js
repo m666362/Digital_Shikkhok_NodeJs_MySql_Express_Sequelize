@@ -31,13 +31,13 @@ router.get('/byid/:id', urlencodedParser,async (req, res)=>{
 })
 
 // todo: Get-One
-router.get('/byemail/:id', urlencodedParser,async (req, res)=>{
+router.get('/byphone/:id', urlencodedParser,async (req, res)=>{
     try {
-        res.send("hello i am Get one byemail Tutorials")
-        console.log("hello i am Get one byemail Tutorials");
+        res.send("hello i am Get one byphone Tutorials")
+        console.log("hello i am Get one byphone Tutorials");
     } catch (e) {
         res.send(e)
-        console.log("hello i am Get one byemail Tutorials error");
+        console.log("hello i am Get one byphone Tutorials error");
     }
 })
 
