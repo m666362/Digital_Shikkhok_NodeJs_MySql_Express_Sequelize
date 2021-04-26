@@ -1,7 +1,9 @@
+const privacy = require("../privacy")
+
 module.exports = {
   HOST: "localhost",
   USER: "root",
-  PASSWORD: "momena9464",
+  PASSWORD: privacy.password,
   DB: "mysql",
   dialect: "mysql",
   pool: {
