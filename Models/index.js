@@ -10,8 +10,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
     acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
+    idle: dbConfig.pool.idle,
+  },
 });
 
 const db = {};
@@ -20,6 +20,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.tutorials = require("./Tutorial")(sequelize, Sequelize);
-db.tutorials = require("./User")(sequelize, Sequelize);
+db.users = require("./User")(sequelize, Sequelize);
 
 module.exports = db;

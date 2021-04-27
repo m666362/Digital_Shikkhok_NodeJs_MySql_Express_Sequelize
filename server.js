@@ -1,8 +1,8 @@
 var express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const tutorialRouter = require("./Controller/tutorials")
-const userRouter = require("./Controller/users")
+const tutorialRouter = require("./Routers/tutorials")
+const userRouter = require("./Routers/users")
 
 var app = express();
 
@@ -23,8 +23,7 @@ app.use("/tutorials", tutorialRouter);
 app.use("/users", userRouter);
 
 const db = require("./Models");
-const router = require("./Controller/tutorials");
-db.sequelize.sync();
+db.sequelize.sync({force:true});
 
 // simple route
 app.get("/", (req, res) => {

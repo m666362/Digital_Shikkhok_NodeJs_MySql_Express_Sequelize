@@ -4,6 +4,10 @@ var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+const db = require("../Models");
+const Model = db.users;
+const Op = db.Sequelize.Op;
+
 const router = new express.Router();
 router.use(express.json());
 
@@ -53,13 +57,30 @@ router.put("/:id", urlencodedParser, async (req, res) => {
 
 // todo: Create
 router.post("/", urlencodedParser, async (req, res) => {
-  try {
-    res.send("hello i am Create Users");
-    console.log("hello i am Create Users");
-  } catch (e) {
-    res.send(e);
-    console.log("hello i am Create Users error");
+  if (!req.body.email) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+    return;
   }
+
+  // Create a Tutorial
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  // Save Tutorial in the database
+  Model.create(user)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial.",
+      });
+    });
 });
 
 // todo: Delete All
