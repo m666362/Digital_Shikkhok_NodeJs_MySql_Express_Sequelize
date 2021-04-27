@@ -20,9 +20,11 @@ function responder(res, status, error, data) {
 
 // todo: Create
 router.post("/", urlencodedParser, (req, res) => {
+  // res.send("ok")
   controller.create(req, (status, data, error) => {
     responder(res, status, error, data);
   });
+
 });
 
 // todo: Get-All

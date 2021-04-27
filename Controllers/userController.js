@@ -5,14 +5,37 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 exports.create = (req, callback) => {
-  const { title, description, published = false } = req.body;
-  const item = { title, description, published };
+  console.log("req.body = ", req.body);
+  const {
+    first_name,
+    last_name,
+    full_name,
+    email,
+    phone_number,
+    password,
+    type,
+    status,
+    token,
+  } = req.body;
+
+  const item = {
+    first_name,
+    last_name,
+    full_name,
+    email,
+    phone_number,
+    password,
+    type,
+    status,
+    token,
+  };
+  console.log("item = ", item);
   Model.create(item)
     .then((data) => {
-      callback(status.Success.OK.code, data, null);
+      callback(200, data, null);
     })
     .catch((error) => {
-      callback(status.Error.BadRequest.code, null, error);
+      callback(400, null, error);
     });
 };
 
