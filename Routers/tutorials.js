@@ -29,18 +29,14 @@ router.get("/", async (req, res) => {
   });
 });
 
-// todo: Get-One byid
-router.get("/byphone/:phone", urlencodedParser, async (req, res) => {
-  try {
-    res.send("hello i am Get one byid Tutorials");
-    console.log("hello i am Get one byid Tutorials");
-  } catch (e) {
-    res.send(e);
-    console.log("hello i am Get one byid Tutorials error");
-  }
+// todo: Get-One byphone
+router.get("/byphone/:phone_number", urlencodedParser, async (req, res) => {
+  tutorialController.findOne(req.params.phone_number, (status, data, error) => {
+    responder(res, status, error, data);
+  });
 });
 
-// todo: Get-One
+// todo: Get-One byId
 router.get("/byid/:id", urlencodedParser, async (req, res) => {
   tutorialController.findOne(req.params.id, (status, data, error) => {
     responder(res, status, error, data);
