@@ -1,5 +1,5 @@
 const db = require("../Models");
-const status = require("../Utils/statusCode")
+const status = require("../Utils/statusCode");
 const Model = db.tutorials;
 const Op = db.Sequelize.Op;
 
@@ -18,7 +18,8 @@ exports.create = (req, callback) => {
 
 // Get one Tutorial by id
 exports.findOne = (id, callback) => {
-    Model.findByPk(id).then((data) => {
+  Model.findByPk(id)
+    .then((data) => {
       callback(200, data, null);
     })
     .catch((error) => {
@@ -26,31 +27,22 @@ exports.findOne = (id, callback) => {
     });
 };
 
-// Get one and update
+// Get one by id and update
 exports.updateOne = (id, updates, callback) => {
-  /*
-  Project.find({ where: { title: "aProject" } }).on("success", function (item) {
-    // Check if record exists in db
-    if (item) {
-      item.update(updates).success(function () {});
+  Model.update(
+    updates,
+    {
+      where: {
+        id: id,
+      },
     }
-  });
-
-  Model.find({ where: { id: id } }).on("success", (item) => {
-    if (item) {
-      item.update(updates);
-    }
-  });
-  */
-
-  Model.update(updates,
-    {where: {id: id}})
-    .then(() => {return Model.findById(id)})
+  )
     .then((data) => {
-      callback(status.Success.OK.code, data, null);
-    }).catch((error)=>{
-      callback(status.Error.BadRequest.code, null, error);
+      callback(200, data, null);
     })
+    .catch((error) => {
+      callback(400, null, error);
+    });
 };
 
 // Get all Tutorial

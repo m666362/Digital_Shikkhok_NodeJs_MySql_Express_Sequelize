@@ -46,6 +46,7 @@ router.get("/byid/:id", urlencodedParser, async (req, res) => {
 // todo: Update
 router.put("/:id", urlencodedParser, async (req, res) => {
   const updates = req.body;
+  console.log(updates);
   tutorialController.updateOne(req.params.id, updates,(status, data, error) => {
     responder(res, status, error, data);
   }); 
