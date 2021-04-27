@@ -45,7 +45,7 @@ exports.updateOne = (id, updates, callback) => {
 // Get many by attribute and update many
 exports.updateMany = (attributes, updates, callback) => {
   Model.update(updates, {
-    where: attributes
+    where: attributes,
   })
     .then((data) => {
       callback(status.Success.OK.code, data, null);
@@ -72,6 +72,20 @@ exports.deleteOne = (id, callback) => {
     where: {
       id: id,
     },
+  })
+    .then((data) => {
+      callback(status.Success.OK.code, data, null);
+    })
+    .catch((error) => {
+      callback(status.Error.BadRequest.code, null, error);
+    });
+};
+
+// Delete all Tutorial
+exports.deleteAll = (callback) => {
+  Model.destroy({
+    where: {},
+    truncate: true,
   })
     .then((data) => {
       callback(status.Success.OK.code, data, null);

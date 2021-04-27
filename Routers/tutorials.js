@@ -5,10 +5,6 @@ const tutorialController = require("./../Controllers/tutorialController");
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const db = require("../Models");
-const Model = db.tutorials;
-const Op = db.Sequelize.Op;
-
 const router = new express.Router();
 router.use(express.json());
 
@@ -22,16 +18,16 @@ function responder(res, status, error, data) {
   }
 }
 
-// todo: Get-All
-router.get("/", async (req, res) => {
-  tutorialController.getAllData((status, data, error) => {
+// todo: Create
+router.post("/", urlencodedParser, (req, res) => {
+  tutorialController.create(req, (status, data, error) => {
     responder(res, status, error, data);
   });
 });
 
-// todo: Get-One byphone
-router.get("/byphone/:phone_number", urlencodedParser, async (req, res) => {
-  tutorialController.findOne(req.params.phone_number, (status, data, error) => {
+// todo: Get-All
+router.get("/", async (req, res) => {
+  tutorialController.getAllData((status, data, error) => {
     responder(res, status, error, data);
   });
 });
@@ -43,7 +39,14 @@ router.get("/byid/:id", urlencodedParser, async (req, res) => {
   });
 });
 
-// todo: Update
+// todo: Get-One byphone
+router.get("/byphone/:phone_number", urlencodedParser, async (req, res) => {
+  tutorialController.findOne(req.params.phone_number, (status, data, error) => {
+    responder(res, status, error, data);
+  });
+});
+
+// todo: Update by id
 router.put("/byid/:id", urlencodedParser, (req, res) => {
   const updates = req.body;
   tutorialController.updateOne(req.params.id, updates,(status, data, error) => {
@@ -51,7 +54,8 @@ router.put("/byid/:id", urlencodedParser, (req, res) => {
   }); 
 });
 
-// todo: Update
+// todo: Update many by attribute
+// attributes in query, update in body
 router.put("/byattributes", urlencodedParser, (req, res) => {
   const updates = req.body;
   tutorialController.updateMany(req.query, updates,(status, data, error) => {
@@ -59,32 +63,14 @@ router.put("/byattributes", urlencodedParser, (req, res) => {
   }); 
 });
 
-// todo: Create
-router.post("/", urlencodedParser, (req, res) => {
-  tutorialController.create(req, (status, data, error) => {
-    responder(res, status, error, data);
-  });
-});
-
 // todo: Delete All
 router.delete("/", urlencodedParser, async (req, res) => {
-  try {
-    res.send("hello i am Delete All Tutorials");
-    console.log("hello i am Delete All Tutorials");
-  } catch (e) {
-    res.send(e);
-    console.log("hello i am Delete All Tutorials error");
-  }
+  tutorialController.deleteAll((status, data, error) => {
+    responder(res, status, error, data);
+  });
 });
 
 // todo: Delete One
-router.delete("/:id", urlencodedParser, (req, res) => {
-  tutorialController.deleteOne(req.params.id, (status, data, error) => {
-    responder(res, status, error, data);
-  });
-});
-
-// todo: Delete Many
 router.delete("/:id", urlencodedParser, (req, res) => {
   tutorialController.deleteOne(req.params.id, (status, data, error) => {
     responder(res, status, error, data);
