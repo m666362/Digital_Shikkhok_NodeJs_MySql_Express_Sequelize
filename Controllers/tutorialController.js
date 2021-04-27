@@ -17,13 +17,8 @@ exports.create = (req, callback) => {
 };
 
 // Get one Tutorial by id
-exports.findOne = (phone_number, callback) => {
-  Model.findOne({
-    where: {
-      phone_number: phone_number,
-    },
-  })
-    .then((data) => {
+exports.findOne = (id, callback) => {
+    Model.findByPk(id).then((data) => {
       callback(200, data, null);
     })
     .catch((error) => {
@@ -32,7 +27,8 @@ exports.findOne = (phone_number, callback) => {
 };
 
 // Get one and update
-exports.findOne = (id, updates, callback) => {
+exports.updateOne = (id, updates, callback) => {
+  /*
   Project.find({ where: { title: "aProject" } }).on("success", function (item) {
     // Check if record exists in db
     if (item) {
@@ -45,6 +41,16 @@ exports.findOne = (id, updates, callback) => {
       item.update(updates);
     }
   });
+  */
+
+  Model.update(updates,
+    {where: {id: id}})
+    .then(() => {return Model.findById(id)})
+    .then((data) => {
+      callback(status.Success.OK.code, data, null);
+    }).catch((error)=>{
+      callback(status.Error.BadRequest.code, null, error);
+    })
 };
 
 // Get all Tutorial

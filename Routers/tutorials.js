@@ -45,13 +45,10 @@ router.get("/byid/:id", urlencodedParser, async (req, res) => {
 
 // todo: Update
 router.put("/:id", urlencodedParser, async (req, res) => {
-  try {
-    res.send("hello i am Update one Tutorials");
-    console.log("hello i am Update one Tutorials");
-  } catch (e) {
-    res.send(e);
-    console.log("hello i am Update one Tutorials error");
-  }
+  const updates = req.body;
+  tutorialController.updateOne(req.params.id, updates,(status, data, error) => {
+    responder(res, status, error, data);
+  }); 
 });
 
 // todo: Create
