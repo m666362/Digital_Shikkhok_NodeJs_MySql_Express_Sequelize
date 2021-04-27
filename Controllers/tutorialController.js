@@ -20,28 +20,38 @@ exports.create = (req, callback) => {
 exports.findOne = (id, callback) => {
   Model.findByPk(id)
     .then((data) => {
-      callback(200, data, null);
+      callback(status.Success.OK.code, data, null);
     })
     .catch((error) => {
-      callback(400, null, error);
+      callback(status.Error.BadRequest.code, null, error);
     });
 };
 
 // Get one by id and update
 exports.updateOne = (id, updates, callback) => {
-  Model.update(
-    updates,
-    {
-      where: {
-        id: id,
-      },
-    }
-  )
+  Model.update(updates, {
+    where: {
+      id: id,
+    },
+  })
     .then((data) => {
-      callback(200, data, null);
+      callback(status.Success.OK.code, data, null);
     })
     .catch((error) => {
-      callback(400, null, error);
+      callback(status.Error.BadRequest.code, null, error);
+    });
+};
+
+// Get many by attribute and update many
+exports.updateMany = (attributes, updates, callback) => {
+  Model.update(updates, {
+    where: attributes
+  })
+    .then((data) => {
+      callback(status.Success.OK.code, data, null);
+    })
+    .catch((error) => {
+      callback(status.Error.BadRequest.code, null, error);
     });
 };
 
@@ -49,10 +59,10 @@ exports.updateOne = (id, updates, callback) => {
 exports.getAllData = (callback) => {
   Model.findAll({})
     .then((data) => {
-      callback(200, data, null);
+      callback(status.Success.OK.code, data, null);
     })
     .catch((error) => {
-      callback(400, null, error);
+      callback(status.Error.BadRequest.code, null, error);
     });
 };
 
@@ -64,10 +74,10 @@ exports.deleteOne = (id, callback) => {
     },
   })
     .then((data) => {
-      callback(200, data, null);
+      callback(status.Success.OK.code, data, null);
     })
     .catch((error) => {
-      callback(400, null, error);
+      callback(status.Error.BadRequest.code, null, error);
     });
 };
 
