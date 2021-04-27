@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 // todo: Get-One byid
-router.get("/byid/:id", urlencodedParser, async (req, res) => {
+router.get("/byphone/:phone", urlencodedParser, async (req, res) => {
   try {
     res.send("hello i am Get one byid Tutorials");
     console.log("hello i am Get one byid Tutorials");
@@ -41,14 +41,10 @@ router.get("/byid/:id", urlencodedParser, async (req, res) => {
 });
 
 // todo: Get-One
-router.get("/byphone/:id", urlencodedParser, async (req, res) => {
-  try {
-    res.send("hello i am Get one byphone Tutorials");
-    console.log("hello i am Get one byphone Tutorials");
-  } catch (e) {
-    res.send(e);
-    console.log("hello i am Get one byphone Tutorials error");
-  }
+router.get("/byid/:id", urlencodedParser, async (req, res) => {
+  tutorialController.findOne(req.params.id, (status, data, error) => {
+    responder(res, status, error, data);
+  });
 });
 
 // todo: Update
@@ -81,6 +77,13 @@ router.delete("/", urlencodedParser, async (req, res) => {
 });
 
 // todo: Delete One
+router.delete("/:id", urlencodedParser, (req, res) => {
+  tutorialController.deleteOne(req.params.id, (status, data, error) => {
+    responder(res, status, error, data);
+  });
+});
+
+// todo: Delete Many
 router.delete("/:id", urlencodedParser, (req, res) => {
   tutorialController.deleteOne(req.params.id, (status, data, error) => {
     responder(res, status, error, data);
