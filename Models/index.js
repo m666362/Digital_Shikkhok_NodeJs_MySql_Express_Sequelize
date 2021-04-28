@@ -37,7 +37,27 @@ db.tutorials.belongsTo(db.users, {
   as: "user",
 });
 
-// todo: configure Student
+// **********todo: configure Student*********
+// student-user
+db.users.hasMany(db.students, { as: "students" });
+db.students.belongsTo(db.users, {
+  foreignKey: "userId",
+  as: "user",
+});
+
+// student-grade_levels
+db.grade_levels.hasMany(db.students, { as: "students" });
+db.students.belongsTo(db.grade_levels, {
+  foreignKey: "gradeLevelId",
+  as: "grade_level",
+});
+
+// student-institutions
+db.institutions.hasMany(db.students, { as: "students" });
+db.students.belongsTo(db.institutions, {
+  foreignKey: "institutionId",
+  as: "institution",
+});
 
 // todo: configure Tutorial
 
