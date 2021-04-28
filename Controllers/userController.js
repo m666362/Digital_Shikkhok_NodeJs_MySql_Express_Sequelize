@@ -41,7 +41,7 @@ exports.create = (req, callback) => {
 
 // Get one User by id
 exports.findOne = (id, callback) => {
-  Model.findByPk(id)
+  Model.findByPk(id, { include: ["tutorials"] })
     .then((data) => {
       callback(status.Success.OK.code, data, null);
     })

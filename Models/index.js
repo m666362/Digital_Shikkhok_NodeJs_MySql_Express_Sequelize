@@ -22,4 +22,27 @@ db.sequelize = sequelize;
 db.tutorials = require("./Tutorial")(sequelize, Sequelize);
 db.users = require("./User")(sequelize, Sequelize);
 
+db.students = require("./Student")(sequelize, Sequelize);
+db.teachers = require("./Teacher")(sequelize, Sequelize);
+db.institutions = require("./Institution")(sequelize, Sequelize);
+db.grade_levels = require("./GradeLevel")(sequelize, Sequelize);
+db.subjects = require("./Subject")(sequelize, Sequelize);
+db.questions = require("./Question")(sequelize, Sequelize);
+db.answers = require("./Answer")(sequelize, Sequelize);
+
+// todo: configure Tutorial
+db.users.hasMany(db.tutorials, { as: "tutorials" });
+db.tutorials.belongsTo(db.users, {
+  foreignKey: "userId",
+  as: "user",
+});
+
+// todo: configure Student
+
+// todo: configure Tutorial
+
+// todo: configure Question
+
+// todo: configure Answer
+
 module.exports = db;

@@ -5,8 +5,8 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, callback) => {
-  const { title, description, published = false } = req.body;
-  const item = { title, description, published };
+  const { title, description, published = false, userId } = req.body;
+  const item = { title, description, published , userId};
   Model.create(item)
     .then((data) => {
       callback(status.Success.OK.code, data, null);
@@ -18,7 +18,7 @@ exports.create = (req, callback) => {
 
 // Get one Tutorial by id
 exports.findOne = (id, callback) => {
-  Model.findByPk(id)
+  Model.findByPk(id, { include: ["user"] })
     .then((data) => {
       callback(status.Success.OK.code, data, null);
     })

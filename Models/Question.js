@@ -3,16 +3,13 @@ module.exports = (sequelize, Sequelize) => {
     // userId should be included in req.body
 
   const schema = {
-    title: {
+    name: {
       type: Sequelize.STRING
     },
-    description: {
+    address: {
       type: Sequelize.STRING
-    },
-    published: {
-      type: Sequelize.BOOLEAN
     }
   }
-  const Tutorial = sequelize.define("tutorial", schema);
-  return Tutorial;
+  const Model = sequelize.define("question", schema);
+  return Model;
 };

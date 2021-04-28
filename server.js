@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const tutorialRouter = require("./Routers/tutorials")
 const userRouter = require("./Routers/users")
-
 var app = express();
 
 var corsOptions = {
